@@ -35,8 +35,8 @@ export default defineNuxtConfig({
   ],
   pwa: {
     manifest: {
-      name: "My Awesome App",
-      short_name: "fa",
+      name: "Se liga app 58",
+      short_name: "se liga",
       description: "uerj app",
       icons: [
         {
