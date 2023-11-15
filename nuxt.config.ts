@@ -1,6 +1,6 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  devtools: { enabled: true },
+  devtools: { enabled: false },
   modules: ["@vite-pwa/nuxt"],
   imports: {
     dirs: [
@@ -80,6 +80,9 @@ export default defineNuxtConfig({
           type: "image/png",
         },
       ],
+    },
+    workbox: {
+      skipWaiting: true,
     },
   },
 });
