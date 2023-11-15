@@ -37,6 +37,7 @@
           <input
             type="text"
             class="card input_card"
+            disabled
             :id="`input_box_${index}`"
             v-model="niveis[currentNivel].request[index]"
             maxlength="1"
@@ -47,7 +48,7 @@
     </div>
     <div class="container mt-4" id="teclado">
       <h4 class="text-center mb-3">Utilize o teclado abaixo</h4>
-      <div class="row justify-content-center">
+      <div class="row px-4 justify-content-center">
         <div
           class="card m-1 p-0 shadown"
           id="button_1"
