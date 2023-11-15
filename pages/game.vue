@@ -16,7 +16,15 @@
     <div class="container" id="imagem_resposta">
       <div class="justify-content-center">
         <div class="card" style="height: 200px">
-          <div class="card-body"></div>
+          <div
+            class="card-body"
+            style="
+              background-image: url('/assets/images/nokia.png');
+              background-size: contain;
+              background-repeat: no-repeat;
+              background-position: bottom;
+            "
+          ></div>
         </div>
       </div>
     </div>
