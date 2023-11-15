@@ -1,44 +1,6 @@
 <template>
   <div>
     <div
-      class="modal fade"
-      id="modal-intro"
-      data-bs-backdrop="static"
-      aria-hidden="true"
-      aria-labelledby="exampleModalToggleLabel"
-      tabindex="-1"
-    >
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-          <div class="modal-header" style="border-bottom: 0px"></div>
-          <div class="modal-body text-center">
-            Muito bom ter você por aqui. <br />
-            Favor me informe como você quer ser chamada(o):
-            <div class="m-3">
-              <input
-                type="text"
-                v-model="name"
-                required
-                class="form-control"
-                id="playerName"
-              />
-              <div class="invalid-feedback">Seu nome é obrigatório.</div>
-            </div>
-          </div>
-          <div class="modal-footer">
-            <button
-              class="btn btn-primary"
-              style="width: 100%"
-              id="save"
-              @click="start"
-            >
-              Salvar
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div
       class="container vh-100 d-flex justify-content-center align-items-center"
     >
       <div class="row">

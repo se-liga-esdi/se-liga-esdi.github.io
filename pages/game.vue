@@ -37,8 +37,8 @@
           <input
             type="text"
             class="card input_card"
-            disabled
             :id="`input_box_${index}`"
+            readonly
             v-model="niveis[currentNivel].request[index]"
             maxlength="1"
           />
@@ -291,15 +291,15 @@ let currentButtonActive = useState<string>("currentButtonActive", () => "");
 let charActive = useState<Array<string> | string>("charActive", () => []);
 
 function focus(elementId: string) {
+  // elementFocus?.classList?.remove("focus");
   elementFocus = document.getElementById(elementId);
-  elementFocus?.focus();
+  // elementFocus.classList.add("focus");
   elementFocus.select();
 }
 
 onMounted(() => {
   focus(`input_box_${currentInputBoxNumber.value}`);
   elementInputCard = $(".input_card");
-  // introJs().start();
 });
 
 function animateButton(elementId: string) {
@@ -311,14 +311,16 @@ function animateButton(elementId: string) {
 }
 
 function backspace() {
-  niveis[currentNivel.value].request[currentInputBoxNumber.value] = "";
-  let inputBoxId = `input_box_${currentInputBoxNumber.value}`;
-  if (currentInputBoxNumber.value > 0) {
-    if (currentInputBoxNumber.value) currentInputBoxNumber.value--;
-    inputBoxId = `input_box_${currentInputBoxNumber.value}`;
-    currentIndexChar.value = 0;
+  if (!niveis[currentNivel.value].request[currentInputBoxNumber.value]) {
+    let inputBoxId = `input_box_${currentInputBoxNumber.value}`;
+    if (currentInputBoxNumber.value > 0) {
+      if (currentInputBoxNumber.value) currentInputBoxNumber.value--;
+      inputBoxId = `input_box_${currentInputBoxNumber.value}`;
+      currentIndexChar.value = 0;
+    }
+    focus(inputBoxId);
+    niveis[currentNivel.value].request[currentInputBoxNumber.value] = "";
   }
-  focus(inputBoxId);
 }
 
 function nextInputBox() {
@@ -405,6 +407,11 @@ function next() {
 }
 
 function exit() {
+  elementInputCard?.removeClass("input_card_success");
+  currentInputBoxNumber.value = 0;
+  currentIndexChar.value = 0;
+  currentNivel.value = 0;
+  modalSuccess.hide();
   navigateTo("/");
 }
 </script>
@@ -446,5 +453,8 @@ function exit() {
   100% {
     transform: scale(1);
   }
+}
+.focus {
+  border-color: orange;
 }
 </style>
