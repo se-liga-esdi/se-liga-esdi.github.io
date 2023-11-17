@@ -311,17 +311,18 @@ function animateButton(elementId: string) {
 }
 
 function backspace() {
-  if (!niveis[currentNivel.value].request[currentInputBoxNumber.value]) {
-    let inputBoxId = `input_box_${currentInputBoxNumber.value}`;
-    if (currentInputBoxNumber.value > 0) {
-      if (currentInputBoxNumber.value) currentInputBoxNumber.value--;
-      inputBoxId = `input_box_${currentInputBoxNumber.value}`;
-      currentIndexChar.value = 0;
-    }
-    focus(inputBoxId);
+  // if (!niveis[currentNivel.value].request[currentInputBoxNumber.value]) {
+  let inputBoxId = `input_box_${currentInputBoxNumber.value}`;
+  if (currentInputBoxNumber.value >= 0) {
     niveis[currentNivel.value].request[currentInputBoxNumber.value] = "";
+    if (currentInputBoxNumber.value) currentInputBoxNumber.value--;
+    inputBoxId = `input_box_${currentInputBoxNumber.value}`;
+    currentIndexChar.value = 0;
   }
+  focus(inputBoxId);
+  // niveis[currentNivel.value].request[currentInputBoxNumber.value] = "";
 }
+// }
 
 function nextInputBox() {
   currentInputBoxNumber.value++;
