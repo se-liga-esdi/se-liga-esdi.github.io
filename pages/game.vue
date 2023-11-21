@@ -39,6 +39,7 @@
             class="card input_card"
             :id="`input_box_${index}`"
             readonly
+            @click="selectInputBox(index)"
             v-model="niveis[currentNivel].request[index]"
             maxlength="1"
           />
@@ -254,7 +255,7 @@
               style="width: 100%"
               id="next"
             >
-              Próxima fase
+              Próxima
             </button>
           </div>
         </div>
@@ -324,6 +325,12 @@ function backspace() {
 }
 // }
 
+function selectInputBox(index: number) {
+  currentInputBoxNumber.value = index;
+  currentIndexChar.value = 0;
+  focus(`input_box_${currentInputBoxNumber.value}`);
+}
+
 function nextInputBox() {
   currentInputBoxNumber.value++;
   const inputBoxId = `input_box_${currentInputBoxNumber.value}`;
@@ -354,16 +361,15 @@ function rightAnswer() {
 
 function changeElementFocus() {
   timeoutId.value = setTimeout(() => {
-    const camposLenth = niveis[currentNivel.value].campos.length - 1;
+    const camposLenth = niveis[currentNivel.value].campos.length;
     const response = niveis[currentNivel.value].response;
+    const request = Object.values(niveis[currentNivel.value].request);
 
-    if (camposLenth > currentInputBoxNumber.value) {
+    if (camposLenth > request.length) {
       nextInputBox();
-    } else if (camposLenth == currentInputBoxNumber.value) {
+    } else if (camposLenth == request.length) {
       clearTimeout(timeoutId.value);
-      if (
-        response == Object.values(niveis[currentNivel.value].request).join("")
-      ) {
+      if (response == request.join("")) {
         rightAnswer();
       } else {
         elementInputCard.removeClass("input_card_success");
@@ -405,6 +411,8 @@ function next() {
   currentIndexChar.value = 0;
   currentNivel.value++;
   modalSuccess.hide();
+  modalFinish?.hide();
+  focus(`input_box_${currentInputBoxNumber.value}`);
 }
 
 function exit() {
@@ -412,7 +420,9 @@ function exit() {
   currentInputBoxNumber.value = 0;
   currentIndexChar.value = 0;
   currentNivel.value = 0;
+  niveis.forEach((nivel) => (nivel.request = []));
   modalSuccess.hide();
+  modalFinish?.hide();
   navigateTo("/");
 }
 </script>
