@@ -12,7 +12,7 @@
             data-intro="Hello step one!"
             @click="startGame(1)"
           >
-            Facil
+            Fácil
           </button>
         </div>
         <div class="col-12 my-2">
@@ -21,19 +21,10 @@
             style="background-color: #111c06"
             @click="startGame(2)"
           >
-            Dificil
+            Difícil
           </button>
         </div>
         <hr />
-        <div class="col-12 my-2">
-          <button
-            class="btn w-100 text-white"
-            style="background-color: #111c06"
-            @click="tutorial()"
-          >
-            Iniciar tutorial
-          </button>
-        </div>
       </div>
     </div>
   </div>

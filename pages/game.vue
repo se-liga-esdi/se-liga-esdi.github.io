@@ -11,11 +11,24 @@
             Voltar
           </button>
         </div>
+        <div class="col d-flex justify-content-end">
+          <button
+            class="btn text-white"
+            @click="startIntro()"
+            style="background-color: #111c06"
+          >
+            Tutorial
+          </button>
+        </div>
       </div>
     </div>
     <div class="container" id="imagem_resposta">
       <div class="justify-content-center">
-        <div class="card" style="height: 200px">
+        <div
+          class="card"
+          data-intro="Nessa área aparecerá o modelo do telefone a ser descoberto."
+          style="height: 200px"
+        >
           <div
             class="card-body"
             style="
@@ -31,6 +44,7 @@
     <div class="container d-flex justify-content-center mt-2" id="dicas">
       <div
         class="justify-content-center"
+        data-intro="Cada quadrado representa uma letra ou um número do nome do modelo."
         style="display: inline-flex; flex-wrap: wrap"
       >
         <div class="m-1" v-for="(item, index) in niveis[currentNivel].campos">
@@ -43,13 +57,23 @@
             v-model="niveis[currentNivel].request[index]"
             maxlength="1"
           />
-          <p class="text-center m-0">{{ item.dica }}</p>
+          <p
+            v-if="niveis[currentNivel].campos.length - 4 == index"
+            data-intro="O número embaixo de cada letra mostra o código a ser descoberto para que possa desvendar o nome do aparelho."
+            class="text-center m-0"
+          >
+            {{ item.dica }}
+          </p>
+          <p v-else class="text-center m-0">{{ item.dica }}</p>
         </div>
       </div>
     </div>
     <div class="container mt-4" id="teclado">
       <h4 class="text-center mb-3">Utilize o teclado abaixo</h4>
-      <div class="row px-4 justify-content-center">
+      <div
+        data-intro="Este formato de teclado foi utilizado até os anos 2010. E é através dele que você vai descobrir o nome e o modelo do aparelho."
+        class="row px-4 justify-content-center"
+      >
         <div
           class="card m-1 p-0 shadown"
           id="button_1"
@@ -301,8 +325,24 @@ function focus(elementId: string) {
 onMounted(() => {
   focus(`input_box_${currentInputBoxNumber.value}`);
   elementInputCard = $(".input_card");
+
+  const intro = localStorage.getItem("intro");
+  if (intro != "true") {
+    introJs()
+      .onbeforeexit(function () {
+        localStorage.setItem("intro", "true");
+      })
+      .start();
+  }
 });
 
+function startIntro() {
+  introJs()
+    .onbeforeexit(function () {
+      localStorage.setItem("intro", "true");
+    })
+    .start();
+}
 function animateButton(elementId: string) {
   const el = document.getElementById(elementId);
   el?.classList.add("animate_click");
