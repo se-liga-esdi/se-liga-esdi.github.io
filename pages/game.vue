@@ -11,15 +11,6 @@
             Voltar
           </button>
         </div>
-        <div class="col d-flex justify-content-end">
-          <button
-            class="btn text-white"
-            @click="startIntro()"
-            style="background-color: #111c06"
-          >
-            Tutorial
-          </button>
-        </div>
       </div>
     </div>
     <div class="container" id="imagem_resposta">
@@ -248,21 +239,32 @@
       id="modal-success"
       data-bs-backdrop="static"
       aria-hidden="true"
+      style="background-color: #a3be97"
       aria-labelledby="exampleModalToggleLabel"
       tabindex="-1"
     >
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
           <div class="modal-header" style="border-bottom: 0px"></div>
-          <div class="modal-body text-center">
-            <i
-              class="bi bi-check-circle-fill"
-              style="font-size: 32px; color: green"
-            ></i>
+          <div class="modal-body">
+            <div class="card" style="height: 200px">
+              <div
+                class="card-body"
+                style="
+                  background-image: url('/assets/images/nokia.png');
+                  background-size: contain;
+                  background-repeat: no-repeat;
+                  background-position: bottom;
+                "
+              ></div>
+            </div>
             <br />
-            <br />
-
-            Parabens você acertou :)!
+            <h4 class="text-center">O famoso tijolão!</h4>
+            <small class="text-muted">
+              O Nokia 3310 ficou conhecido como o "tijolão". Lançado no ano
+              2000, vendeu 126 milhões de cópias na época. Também era famoso por
+              possuir o "jogo da cobrinha"
+            </small>
           </div>
           <div class="modal-footer">
             <button
@@ -272,14 +274,6 @@
               id="exit"
             >
               Sair
-            </button>
-            <button
-              class="col btn btn-primary"
-              @click="next"
-              style="width: 100%"
-              id="next"
-            >
-              Próxima
             </button>
           </div>
         </div>
@@ -326,23 +320,19 @@ onMounted(() => {
   focus(`input_box_${currentInputBoxNumber.value}`);
   elementInputCard = $(".input_card");
 
-  const intro = localStorage.getItem("intro");
-  if (intro != "true") {
-    introJs()
-      .onbeforeexit(function () {
-        localStorage.setItem("intro", "true");
-      })
-      .start();
-  }
-});
-
-function startIntro() {
   introJs()
-    .onbeforeexit(function () {
-      localStorage.setItem("intro", "true");
+    .setOptions({
+      doneLabel: "Fechar",
+      nextLabel: "Próximo",
+      prevLabel: "Voltar",
     })
     .start();
-}
+});
+
+onBeforeRouteLeave(() => {
+  introJs().exit();
+});
+
 function animateButton(elementId: string) {
   const el = document.getElementById(elementId);
   el?.classList.add("animate_click");
@@ -381,22 +371,14 @@ function nextInputBox() {
 function rightAnswer() {
   elementInputCard.removeClass("input_card_danger");
   elementInputCard.addClass("input_card_success");
-  if (currentNivel.value == niveis.length - 1) {
-    const modalElement = document.getElementById("modal-finish");
-    modalFinish = new bootstrap.Modal(modalElement, {
-      focus: true,
-    });
-    modalFinish.show();
-  } else {
-    const modalElement = document.getElementById("modal-success");
+  const modalElement = document.getElementById("modal-success");
 
-    /** ignore-ts */
-    modalSuccess = new bootstrap.Modal(modalElement, {
-      focus: true,
-    });
+  /** ignore-ts */
+  modalSuccess = new bootstrap.Modal(modalElement, {
+    focus: true,
+  });
 
-    modalSuccess.show();
-  }
+  modalSuccess.show();
 }
 
 function changeElementFocus() {

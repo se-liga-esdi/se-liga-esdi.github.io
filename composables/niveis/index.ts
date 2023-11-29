@@ -21,20 +21,5 @@ export const useNiveis = () => {
       response: "nokia3310",
       request: [],
     },
-    {
-      campos: [
-        { dica: "66" },
-        { dica: "666" },
-        { dica: "55" },
-        { dica: "444" },
-        { dica: "2" },
-        { dica: "3333" },
-        { dica: "3333" },
-        { dica: "2222" },
-        { dica: "00" },
-      ],
-      response: "nokia3320",
-      request: [],
-    },
   ]).value;
 };

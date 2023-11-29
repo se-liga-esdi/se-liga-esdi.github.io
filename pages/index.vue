@@ -9,7 +9,6 @@
           <button
             class="btn text-white w-100"
             style="background-color: #111c06"
-            data-intro="Hello step one!"
             @click="startGame(1)"
           >
             Fácil
@@ -18,8 +17,10 @@
         <div class="col-12 my-2">
           <button
             class="btn w-100 text-white"
+            disabled
+            id="dificil"
+            @click="() => {}"
             style="background-color: #111c06"
-            @click="startGame(2)"
           >
             Difícil
           </button>
